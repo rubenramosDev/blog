@@ -1,12 +1,19 @@
 ---
 title: "Un primer vistazo a Prometheus."
-url: "/posts/promethus-basics-1"
+languageAltTitle: "First look at Promethus"
+hideFooter: true
+date: 2022-07-30T11:30:04+03:00
+draft: false
+url: "/post/promethus-basics-1"
 summary: "Introducción, conceptos clave y explicación del funcionamiento de esta herramienta para el monitoreo de servicios."
 tags: ["métricas", "prometheus", "microservicios", "monitoreo"]
+categories: ["métricas", "prometheus", "microservicios", "monitoreo"]
+author: "Ruben Ramos"
+images: "images/post-1/cover.jpg"
+keywords: ["métricas", "prometheus", "microservicios", "monitoreo"]
 cover:
     image: images/post-1/cover.jpg
-    alt: ''
-    caption: ''
+    alt: "primer vistazo a Prometheus."
 ---
 
 # Prometheus, ¿Qué es?
@@ -19,13 +26,13 @@ Prometheus es un **sistema de monitoreo de código abierto** cuyo principal func
 Si bien, en esta serie de artículos nos vamos a centrar en el monitoreo de microservicios, Prometheus puede monitorear **cualquier servicio capaz de exponer sus métricas**, siempre y cuando, esta información tenga el **formato específico** requerido por Prometheus. Por ejemplo, se pueden monitorear servidores Linux, Windows, NGINX, Kafka o bases de datos como MySQL, SQL Server, etc...
 
 Este es un ejemplo del tipo de resultados que podemos obtener con un sistema de monitoreo conformado con Promethus y Grafana
-![ejemplo-métricas](https://miro.medium.com/max/1312/1*dzODOIDqXTsWauf5eM8Trw.gif)
+![ejemplo-métricas](https://miro.medium.com/max/1312/1*dzODOIDqXTsWauf5eM8Trw.gif#center)
 
 ## ¿Cómo funciona?, Entendiendo su arquitectura
 La siguiente imagen muestra la arquitectura de Promethus de forma muy general, no obstante, nos ayuda a comprender como funciona internamente. 
 
 Como mencionado anteriormente, Promethus nos ayuda a **recompilar, almacenar y exponer** información. Para entender cómo es el flujo de trabajo, veamos la siguiente imagen:
-![arquitectura-básica-promethus](/images/post-1/promethus-architecture.png)
+![arquitectura-básica-promethus](/images/post-1/promethus-architecture.png#center)
 
 1. **Retrival**: Es un motor de *scrapping* encargado de **recolectar** la información de los diferentes servicios *(conocidos como Jobs)* que nos interesa monitorear. En un intervalo de tiempo definido por nosotros por ejemplo, cada 20 segundos, 2 minutos. o 5 min. el scrapper se encargará de consultar los servicios registrados con el objetivo de recolectar su información.   
 Los intervalos de tiempo pueden ser generales para todos los *Jobs* o cada *Job* puede tener un tiempo particular.
@@ -44,7 +51,7 @@ No obstante la definición va más allá de eso y nos comienza a introducir un c
 Si unimos estas dos definiciones, podemos entender el funcionamiento del almacenamiento de Promethus, quién fundamentalmente recolecta, ordena y almacena la información de manera cronológica, obteniendo un conjunto de datos que están cambiado con el tiempo.
 
 Por ejemplo, la siguiente imagen es una animación del tipo de gráfica que se puede lograr con esta información:
-![gráfica-con-datos-series-temporal](https://media.giphy.com/media/rM0wxzvwsv5g4/giphy.gif)
+![gráfica-con-datos-series-temporal](https://media.giphy.com/media/rM0wxzvwsv5g4/giphy.gif#center)
 
 Gracias a esta forma de organizar la información, tenemos posibilidad de ver las tendencias o comportamiento de ciertos valores, por ejemplo, el porcentaje de ventas en cierto período de tiempo o el nivel de carga de nuestros servicios en diferentes ventanas de horarios, etc... 
 

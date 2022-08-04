@@ -1,46 +1,46 @@
 baseURL: http://example.org/
 languageCode: en-us
-title: Ruben
-theme: "PaperMod"
-paginate: 5
+title: Ruben's Blog
 DefaultContentLanguage: es
+paginate: 5
+theme: PaperMod
 
 params:
-  #General
   env: production
-  defaultTheme: auto
-  author: "Ruben Ramos"
+  title: Ruben's Blog | Software engineering
+  description: "During my free time, as a part of my learning routine, I write articles & blogs around the technologies I come across or work with."
+  keywords: [Blog, Code, Tech, .NET, Docker, Spring boot, Java, web development, development]
+  author: Me
+  # author: ["Me", "You"] # multiple authors
+  images: ["<link or path of image for opengraph, twitter-cards>"]
+  DateFormat: "January 2, 2006"
+  defaultTheme: auto # dark, light
   disableThemeToggle: false
 
-  # blog
-  ShowShareButtons: true
-  ShareButtons: ["linkedin", "twitter", "whatsapp"]
-  ShowPostNavLinks: true
-  ShowBreadCrumbs: true
-  ShowCodeCopyButtons: true
-  ShowRssButtonInSectionTermList: false
-  disableSpecial1stPost: false
-  disableScrollToTop: false
-  comments: true
-  hidemeta: false
-  hideSummary: false
+  homeInfoParams:
+    Title: Hi 👋 !
+    Content: "My name is Ruben Ramos, I'm a software engineer and tech enthusiast. As part of my learning process, I write some articles around interesting technologies I come across."
+
+  socialIcons:
+    - name: linkedin
+      url: "https://www.linkedin.com/in/ruben-ramos-dev/"
+    - name: github
+      url: "https://github.com/rubenramosDev"
 
   # Toc
-  UseHugoToc: false
+  UseHugoToc: true
   showtoc: true
   tocopen: false
 
-  socialIcons:
-    - name: twitter
-      url: "https://twitter.com/"
-    - name: stackoverflow
-      url: "https://stackoverflow.com"
-    - name: github
-      url: "https://github.com/"
+  #comments
+  comments: true
+  disqusShortname: "ruben-blog"
 
-  analytics:
-    google:
-      SiteVerificationTag: "XYZabc"
+  #blog
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  disableSpecial1stPost: false
 
 menu:
   main:
@@ -49,9 +49,14 @@ menu:
       url: /posts/
       weight: 10
 
-    - identifier: tags
+    - identifier: Tags
       name: Tags
       url: /tags/
+      weight: 20
+
+    - identifier: archives
+      name: Archives
+      url: /archives/
       weight: 30
 
     - identifier: Search
@@ -59,31 +64,19 @@ menu:
       url: /search/
       weight: 40
 
-    - identifier: archives
-      name: Archives
-      url: /archives/
-      weight: 50
-
-    - identifier: aboutme
-      name: About me
-      url: /about-me/
-      weight: 60
-
 outputs:
   home:
     - HTML
     - JSON
 
-# languages:
-#   en:
-#     languageName: English
-#     weight: 1
-#     contentDir: content/en
-#   fr:
-#     languageName: Français
-#     weight: 2
-#     contentDir: content/fr
-#   es:
-#     languageName: Español
-#     weight: 3
-#     contentDir: content/es
+  assets:
+    favicon: images/favicon.ico
+    favicon16x16: images/favicon.ico
+    favicon32x32: images/favicon.ico
+    apple_touch_icon: images/favicon.ico
+    safari_pinned_tab: images/favicon.ico
+
+  label:
+    text: "Home"
+    icon: images/favicon-16x16.png
+    iconHeight: 35
