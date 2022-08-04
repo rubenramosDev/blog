@@ -1,0 +1,89 @@
+baseURL: http://example.org/
+languageCode: en-us
+title: Ruben
+theme: "PaperMod"
+paginate: 5
+DefaultContentLanguage: es
+
+params:
+  #General
+  env: production
+  defaultTheme: auto
+  author: "Ruben Ramos"
+  disableThemeToggle: false
+
+  # blog
+  ShowShareButtons: true
+  ShareButtons: ["linkedin", "twitter", "whatsapp"]
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: false
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: true
+  hidemeta: false
+  hideSummary: false
+
+  # Toc
+  UseHugoToc: false
+  showtoc: true
+  tocopen: false
+
+  socialIcons:
+    - name: twitter
+      url: "https://twitter.com/"
+    - name: stackoverflow
+      url: "https://stackoverflow.com"
+    - name: github
+      url: "https://github.com/"
+
+  analytics:
+    google:
+      SiteVerificationTag: "XYZabc"
+
+menu:
+  main:
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 10
+
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 30
+
+    - identifier: Search
+      name: Search
+      url: /search/
+      weight: 40
+
+    - identifier: archives
+      name: Archives
+      url: /archives/
+      weight: 50
+
+    - identifier: aboutme
+      name: About me
+      url: /about-me/
+      weight: 60
+
+outputs:
+  home:
+    - HTML
+    - JSON
+
+# languages:
+#   en:
+#     languageName: English
+#     weight: 1
+#     contentDir: content/en
+#   fr:
+#     languageName: Français
+#     weight: 2
+#     contentDir: content/fr
+#   es:
+#     languageName: Español
+#     weight: 3
+#     contentDir: content/es
