@@ -21,3 +21,7 @@
     --code-bg: #252a34;
     --border: #252a34;
 }
+
+.post-content p {
+    text-align: justify;
+}
