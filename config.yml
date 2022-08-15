@@ -61,6 +61,11 @@ menu:
       name: Search
       url: /search/
       weight: 40
+      
+    - identifier: About me
+      name: About me
+      url: /about-me/
+      weight: 50
 
 outputs:
   home:
