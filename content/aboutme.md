@@ -4,6 +4,7 @@ layout: "author"
 url: "/about-me/"
 summary: "About me"
 author: " "
+ShareButtons: ['']
 ---
 
 ![gráfica-con-datos-series-temporal](/images/about-me.png)

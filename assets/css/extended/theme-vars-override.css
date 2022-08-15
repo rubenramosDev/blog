@@ -25,3 +25,7 @@
 .post-content p {
     text-align: justify;
 }
+
+.post-content ul li {
+    text-align: justify;
+}
