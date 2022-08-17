@@ -113,30 +113,43 @@ Este tipo de métrica representa a un valor que puede **incrementar o disminuir*
 application_httprequests_one_minute_error_percentage_rate{server="SERVIDOR-EJEMPLO",app="NombreDeTuServicio",env="development"} 22.126200053643398
 ```
 
-### Histogram
-La documentación de Prometheus nos da una pequeña advertencia [3]:
-> Histograms and summaries are more complex metric types.
+### Histograms
 
-Propongo el siguiente ejemplo para entender este tipo de métrica de la mejor manera. Imaginemos que necesitamos monitorear el porcentaje de errores de nuestra aplicación pero en diferentes momentos, es decir, queremos saber cuál es el porcentaje de error en 1 min., 5 min., 30 min. y 60 min. 
+Un histograma es una representación que permite realizar la distribución o categorización de un conjunto de datos. Por ejemplo, con ayuda de un histograma podemos saber cuántos valores fueron bajos, cuántos valores fueron medios y cuántos altos.
 
-¿Cómo hacerlo? Con lo revisado hasta el momento, podríamos crear 4 métricas individuales de tipo *Gauge* para monitorear estos valores. El problema de esta aproximación es que duplicaríamos 4 métricas cuya única diferencia es el momento en el cual fueron registradas.
+Histogram se utiliza comunmente para monitorear el tamaño de ciertos eventos. Los casos de uso más comunes es para medir el tiempo de las peticiones o el tamaño de la mismas. Este tipo de métrica toma diferentes observaciones de una métrica en diferentes *momentos u observe* y se colocan en un **Bucket**. Un bucket es una agrupación de información predefinida por nosotros *(para este ejemplo, 10, 20, 50).*
 
-Bueno, *Histogram* es la respuesta correcta a nuestro planteamiento. Este tipo de métrica toma diferentes observaciones de una métrica en diferentes *momentos*. Prometheus se encarga de recolectar esta información en diferentes **Buckets**, que son agrupaciones de información predefinidas por nosotros, de esta manera evitamos duplicar una métrica N veces.
+En Prometheus, los buckets se verían de la siguiente manera:
+![arquitectura-básica-Prometheus](/images/post-1/grafica.png#center)
+
+Cada bucket es mayor que el anterior, es decir, sus valores son acumulativos. En este ejemplo, el segundo bucket esta compuesto por la suma de sus valores, más los valores del primero bucket y el tercero, esta compuesto por la suma del segundo y primer bucket.
+
+**_sum** y **_count** por lo general se encuentran presentes en este tipo de métrica. Los 2 campos son valores contadores:
+   - _count incrementa 1 con cada observe.
+   - _sum se incrementa con el valor de la observación obtenida.
 
 ```
-
+application_http_request_duration_seconds_bucket{server="SERVIDOR-EJEMPLO", app="NombreDeTuServicio",env="development", handler="/",le="0.1"} 25688
+application_http_request_duration_seconds_bucket{server="SERVIDOR-EJEMPLO", app="NombreDeTuServicio",env="development", handler="/",le="0.2"} 23688
+application_http_request_duration_seconds_bucket{server="SERVIDOR-EJEMPLO", app="NombreDeTuServicio",env="development", handler="/",le="0.4"} 28782
+application_http_request_duration_seconds_bucket{server="SERVIDOR-EJEMPLO", app="NombreDeTuServicio",env="development", handler="/",le="+Inf"} 29000
+application_http_request_duration_seconds_sum{server="SERVIDOR-EJEMPLO", app="NombreDeTuServicio",env="development", handler="/"} 1974.90592036741
+application_http_request_duration_seconds_count{server="SERVIDOR-EJEMPLO", app="NombreDeTuServicio",env="development", handler="/"} 29020
 ```
+
+**le** significa *less than or equal*, es decir, igual o menos. Por lo cuál, esta métrica se puede entender:
+-  25688 peticiones tomaron igual o menos de 100 milisegundos (ms).
+-  23688 peticiones tomaron igual o menos de 200 milisegundos (ms).
+-  28782 peticiones tomaron igual o menos de 400 milisegundos (ms).
+- En total han habido 29020 peticiones.
+  
 
 ### Summary
-Esta métrica es muy similar a Histogram. Sólo que, además de recolectar valores y establecerlos en Buckets *(agrupaciones de información predefinidas por nosotros)*, también genera la suma de los valores registrados y el número de registros que se han realizado de esta métrica.
-```
-application_httprequests_transactions_sum{server="SERVIDOR-EJEMPLO",app="NombreDeTuServicio",env="development"} 1.8582496999999998
-application_httprequests_transactions_count{server="SERVIDOR-EJEMPLO",app="NombreDeTuServicio",env="development"} 36
-application_httprequests_transactions{server="SERVIDOR-EJEMPLO",app="NombreDeTuServicio",env="development",quantile="0.5"} 0.0005997
-application_httprequests_transactions{server="SERVIDOR-EJEMPLO",app="NombreDeTuServicio",env="development",quantile="0.75"} 0.0073135
-application_httprequests_transactions{server="SERVIDOR-EJEMPLO",app="NombreDeTuServicio",env="development",quantile="0.95"} 0.2358127
-application_httprequests_transactions{server="SERVIDOR-EJEMPLO",app="NombreDeTuServicio",env="development",quantile="0.99"} 0.4829384
-```
+Esta métrica comparte muchas similitudes con Histogram. Se recomienda su uso en los siguientes escenarios:
+- Con los Histograms, los quantiles de una métrica son calculados por Prometheus. Con los Summaries, estos valores son calculados en lado del cliente.
+- Si no se tiene una idea clara sobre las definiciones de los buckets o como segmentar un valor, Summary es mejor alternativa, debido a que los histograms necesitan de definiciones de buckets de manera forzosa. 
+
+Recomiendo consultar la [documentación de Prometheus en dónde se aborda el tema a detalle.](https://prometheus.io/docs/practices/histograms/  )
 
 ## ¿Qué monitorear? ¿Cómo? ¿Cuándo? - The Four Golden Signals
 ¿Es realmente importante monitorear el nombre de un servidor? O, ¿El nombre de los endpoints? Quizás sí o quizás no, algunas métricas tendrán más sentido para una organización que para otra, lo importante entonces es diseñar un plan de monitoreo en dónde se defina claramente: ¿Qué se va a monitorear y para qué? Es de suma importancia, sobre todo si se estará recopilando información que atañe a diferentes áreas, como por ejemplo, el número de ventas de un producto, el número de fallas de los proveedores externos o el tiempo de respuesta de un determinado endpoint, si bien, estos valores pueden estar relacionados, su información y atención no necesariamente pertenece a la misma área dentro de una organización.
@@ -156,6 +169,6 @@ En esta sección me remito de nueva cuenta al artículo Monitoring Distributed S
 Hasta aquí el contenido de esta serie de artículos. En un siguiente artículo se estará cubriendo temas más técnicos de Prometheus como PromQL, el archivo de configuración y Alertmanager, entre otros temas.
 
 ## Referencias
-> [1] [Monitoring Distributed Systems by Rob Ewaschuk](https://sre.google/sre-book/monitoring-distributed-systems/)
-> [2] [Histograms and summaries](https://prometheus.io/docs/practices/histograms/)
-> [2] [Data model](https://prometheus.io/docs/concepts/data_model/)
+> [1] [Monitoring Distributed Systems by Rob Ewaschuk](https://sre.google/sre-book/monitoring-distributed-systems/)   
+> [2] [Histograms and summaries](https://prometheus.io/docs/practices/histograms/)   
+> [3] [Data model](https://prometheus.io/docs/concepts/data_model/)
