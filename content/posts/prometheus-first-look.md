@@ -55,7 +55,7 @@ La siguiente imagen es un ejemplo del tipo de resultados que se pueden obtener d
 La siguiente imagen muestra la arquitectura de Prometheus de forma muy general, no obstante, nos ayuda a comprender su funcionamiento interno. 
 
 Como se mencionó anteriormente, Prometheus nos ayuda a **recopilar, almacenar y exponer** las métricas obtenidas de nuestros servicios. Para entender cómo se lleva a cabo este proceso analicemos la siguiente imagen:
-![arquitectura-básica-Prometheus](images/post-1/promethus-architecture.jpg#center)
+![arquitectura-básica-Prometheus](https://rubenramosdev.github.io/blog/images/post-1/promethus-architecture.jpg#center)
 
 1. **Retrival**: Es un motor de *scrapping* encargado de **recolectar** la información de los diferentes servicios *(conocidos como Jobs)* que nos interesa monitorear. En un intervalo de tiempo definido por nosotros, por ejemplo, cada 20 segundos, 2 o 5 minutos, este motor se encargará de consultar los servicios registrados para recolectar su información. Los intervalos de tiempo pueden ser generales para todos los *Jobs* o cada *Job* puede tener un tiempo particular.
 
@@ -120,7 +120,7 @@ Un histograma es una representación que permite realizar la distribución o cat
 Histogram se utiliza comunmente para monitorear el tamaño de ciertos eventos. Los casos de uso más comunes es para medir el tiempo de las peticiones o el tamaño de la mismas. Este tipo de métrica toma diferentes observaciones de una métrica en diferentes *momentos u observe* y se colocan en un **Bucket**. Un bucket es una agrupación de información predefinida por nosotros *(para este ejemplo, 10, 20, 50).*
 
 En Prometheus, los buckets se verían de la siguiente manera:
-![arquitectura-básica-Prometheus](images/post-1/grafica.png#center)
+![arquitectura-básica-Prometheus](https://rubenramosdev.github.io/blog/images/post-1/grafica.png#center)
 
 Cada bucket es mayor que el anterior, es decir, sus valores son acumulativos. En este ejemplo, el segundo bucket esta compuesto por la suma de sus valores, más los valores del primero bucket y el tercero, esta compuesto por la suma del segundo y primer bucket.
 
@@ -149,7 +149,7 @@ Esta métrica comparte muchas similitudes con Histogram. Se recomienda su uso en
 - Con los Histograms, los quantiles de una métrica son calculados por Prometheus. Con los Summaries, estos valores son calculados en lado del cliente.
 - Si no se tiene una idea clara sobre las definiciones de los buckets o como segmentar un valor, Summary es mejor alternativa, debido a que los histograms necesitan de definiciones de buckets de manera forzosa. 
 
-Recomiendo consultar la [documentación de Prometheus en dónde se aborda el tema a detalle.](https://prometheus.io/docs/practices/histograms/  )
+Recomiendo consultar la [documentación de Prometheus en dónde se aborda el tema a detalle.](https://prometheus.io/docs/practices/histograms/)
 
 ## ¿Qué monitorear? ¿Cómo? ¿Cuándo? - The Four Golden Signals
 ¿Es realmente importante monitorear el nombre de un servidor? O, ¿El nombre de los endpoints? Quizás sí o quizás no, algunas métricas tendrán más sentido para una organización que para otra, lo importante entonces es diseñar un plan de monitoreo en dónde se defina claramente: ¿Qué se va a monitorear y para qué? Es de suma importancia, sobre todo si se estará recopilando información que atañe a diferentes áreas, como por ejemplo, el número de ventas de un producto, el número de fallas de los proveedores externos o el tiempo de respuesta de un determinado endpoint, si bien, estos valores pueden estar relacionados, su información y atención no necesariamente pertenece a la misma área dentro de una organización.

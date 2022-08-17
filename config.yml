@@ -4,13 +4,13 @@ title: À coder | Rubén Ramos
 DefaultContentLanguage: es
 paginate: 4
 theme: PaperMod
+googleAnalytics: "G-HDH45G6EG7"
 
 params:
   env: production
   description: "During my free time, as a part of my learning routine, I write articles & blogs around the technologies I come across or work with."
   keywords: [Blog, Code, Tech, .NET, Docker, Spring boot, Java, web development, development]
   author: Rubén Ramos
-  images: ["<link or path of image for opengraph, twitter-cards>"]
   DateFormat: "January 2, 2006"
   defaultTheme: auto
   disableThemeToggle: false
