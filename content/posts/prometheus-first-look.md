@@ -55,7 +55,7 @@ La siguiente imagen es un ejemplo del tipo de resultados que se pueden obtener d
 La siguiente imagen muestra la arquitectura de Prometheus de forma muy general, no obstante, nos ayuda a comprender su funcionamiento interno. 
 
 Como se mencionó anteriormente, Prometheus nos ayuda a **recopilar, almacenar y exponer** las métricas obtenidas de nuestros servicios. Para entender cómo se lleva a cabo este proceso analicemos la siguiente imagen:
-![arquitectura-básica-Prometheus](/images/post-1/promethus-architecture.jpg#center)
+![arquitectura-básica-Prometheus](images/post-1/promethus-architecture.jpg#center)
 
 1. **Retrival**: Es un motor de *scrapping* encargado de **recolectar** la información de los diferentes servicios *(conocidos como Jobs)* que nos interesa monitorear. En un intervalo de tiempo definido por nosotros, por ejemplo, cada 20 segundos, 2 o 5 minutos, este motor se encargará de consultar los servicios registrados para recolectar su información. Los intervalos de tiempo pueden ser generales para todos los *Jobs* o cada *Job* puede tener un tiempo particular.
 
@@ -120,7 +120,7 @@ Un histograma es una representación que permite realizar la distribución o cat
 Histogram se utiliza comunmente para monitorear el tamaño de ciertos eventos. Los casos de uso más comunes es para medir el tiempo de las peticiones o el tamaño de la mismas. Este tipo de métrica toma diferentes observaciones de una métrica en diferentes *momentos u observe* y se colocan en un **Bucket**. Un bucket es una agrupación de información predefinida por nosotros *(para este ejemplo, 10, 20, 50).*
 
 En Prometheus, los buckets se verían de la siguiente manera:
-![arquitectura-básica-Prometheus](/images/post-1/grafica.png#center)
+![arquitectura-básica-Prometheus](images/post-1/grafica.png#center)
 
 Cada bucket es mayor que el anterior, es decir, sus valores son acumulativos. En este ejemplo, el segundo bucket esta compuesto por la suma de sus valores, más los valores del primero bucket y el tercero, esta compuesto por la suma del segundo y primer bucket.
 
