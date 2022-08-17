@@ -7,7 +7,7 @@ author: " "
 ShareButtons: ['']
 ---
 
-![gráfica-con-datos-series-temporal](https://rubenramosdev.github.io/blog/images/about-me.png)
+![about-me](https://rubenramosdev.github.io/blog/images/about-me.png)
 
 
 > Mi nombre es Rubén Ramos, en este blog escribo sobre promgramación, ingenería y arquitectura de software.
